@@ -9,15 +9,17 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <!-- Server Info -->
 <Route Url="/" Method="GET" Call="GetInfo" Cors="true"/>
 <!-- Swagger specs -->
-<Route Url="/_spec" Method="GET" Call="SwaggerSpec" />
-<!-- GET method to return JSON for a given url id-->
-<Route Url="/:id" Method="GET" Call="GetUrl"/>
+<Route Url="/swagger" Method="GET" Call="SwaggerSpec" />
+<!-- GET method to return JSON for a given url shortUrl-->
+<Route Url="/:shortUrl" Method="GET" Call="GetUrl"/>
+<!-- GET method to return JSON for a given url shortUrl-->
+<Route Url="/info/:shortUrl" Method="GET" Call="GetUrlInfo"/>
 <!-- Delete a url with id-->
 <Route Url="/:id" Method="DELETE" Call="DeleteUrl"/>
 <!-- Create a url-->
 <Route Url="/" Method="POST" Call="CreateUrl"/>
-<!-- Create random urls-->
-<Route Url="/gen/:amount" Method="POST" Call="CreateRandomUrl"/>
+<!-- GET method to return JSON for a given url id-->
+<Route Url="/delete/:id" Method="GET" Call="DeleteUrl"/>
 
 
 </Routes>
@@ -34,7 +36,31 @@ ClassMethod GetInfo() As %Status
 }
 
 /// Return one record fo dc.Sample.url
-ClassMethod GetUrl(index As %String) As %Status
+ClassMethod GetUrl(shortUrl As %String) As %Status
+{
+	#dim tSC As %Status = $$$OK
+    #dim e As %Exception.AbstractException
+    #dim id As %Integer
+
+    #; Set the response header to plain text
+    Set %response.ContentType = ..#CONTENTTYPEJSON
+    Set shortUrl=" "_shortUrl
+    Set id=$Order(^Sample.UrlI("Index",shortUrl,""),-1)
+    
+    Set url = ##class(dc.Sample.Url).%OpenId(id)
+    
+    If '$IsObject(url) Quit ..Http404()
+
+    Set url.Clicked=1
+    Do url.%Save()
+
+    set %response.Redirect = url.LongUrl
+
+    Quit tSC
+}
+
+/// Return one record fo dc.Sample.url
+ClassMethod GetUrlInfo(index As %String) As %Status
 {
 	#dim tSC As %Status = $$$OK
     #dim e As %Exception.AbstractException
@@ -49,12 +75,7 @@ ClassMethod GetUrl(index As %String) As %Status
     
     If '$IsObject(url) Quit ..Http404()
 
-    Set url.Clicked=1
-    Do url.%Save()
-
-    set %response.Redirect = url.LongUrl
-
-    //Do url.%JSONExport()
+    Do url.%JSONExport()
 
     Quit tSC
 }
@@ -101,21 +122,6 @@ ClassMethod DeleteUrl(id As %String) As %Status
     Set %response.ContentType = ..#CONTENTTYPEJSON
 
     Quit tSC
-}
-
-ClassMethod CreateRandomUrl(amount As %Integer) As %Status
-{
-#dim tSC As %Status = $$$OK
-    Set %response.ContentType = ..#CONTENTTYPEJSON
-
-    Try {
-        set status = ##class(dc.Sample.Url).AddTestData(amount)
-        $$$ThrowOnError(status)
-        Set message = "Created "_amount_" random urls in Sample.url data"
-    } Catch(ex) {
-        Set tSC = ex.Code
-    }
-    Return tSC
 }
 
 ClassMethod SwaggerSpec() As %Status
