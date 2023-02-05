@@ -1,6 +1,6 @@
 
-### This project is based in the project intersystems-community/iris-rest-api-templates (a template of a REST API application built with ObjectScript in InterSystems IRIS)
-
+This project is based in the project intersystems-community/iris-rest-api-templates    
+(a template of a REST API application built with ObjectScript in InterSystems IRIS)
 
 ## Use
 
