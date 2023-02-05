@@ -3,7 +3,7 @@ Class dc.Sample.Url Extends (%Persistent, %JSON.Adaptor, %Populate)
 
 Property ShortUrl As %String;
 
-Property LongUrl As %String;
+Property LongUrl As %String(MAXLEN = 250);
 
 Property Campaing As %String;
 
