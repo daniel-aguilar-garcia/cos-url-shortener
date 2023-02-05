@@ -1,5 +1,5 @@
 
-## This project is based in the project intersystems-community/iris-rest-api-templates (a template of a REST API application built with ObjectScript in InterSystems IRIS)
+### This project is based in the project intersystems-community/iris-rest-api-templates (a template of a REST API application built with ObjectScript in InterSystems IRIS)
 
 
 ## Use
@@ -36,10 +36,10 @@ This will create a record in dc.Sample.Url class of IRIS.
 
 # Testing Navigate to Long Url requests
 
-To navigate to the long url associated for a particular record provide the id in GET request like 'localhost:52773/shortUrl' . E.g.:
+To navigate to the long url associated for a particular record provide the id in GET request like 'localhost:52773/:shortUrl' . E.g.:
 
 ```
-localhost:52773/RPLMMG
+localhost:52773/:RPLMMG
 ```
 
 This will redirect the user to the long url associated to the short link.
@@ -50,7 +50,7 @@ This will redirect the user to the long url associated to the short link.
 To request the data for a particular record provide the id in GET request like 'localhost:52773/info/id' . E.g.:
 
 ```
-localhost:52773/RPLMMG
+localhost:52773/:RPLMMG
 ```
 
 This will return JSON data for the url associated to the short link RPLMMG, something like that:
@@ -65,7 +65,7 @@ This will return JSON data for the url associated to the short link RPLMMG, some
 For delete request this REST API expects only the id of the record to delete. E.g. if the id=5 the following DELETE call will delete the record:
 
 ```
-localhost:52773/delete/5
+localhost:52773/delete/:5
 ```
 
 # Task autodelete expired links
