@@ -50,7 +50,7 @@ This will redirect the user to the long url associated to the short link.
 To request the data for a particular record provide the id in GET request like 'localhost:52773/info/id' . E.g.:
 
 ```
-localhost:52773/RPLMMG
+localhost:52773/info/RPLMMG
 ```
 
 This will return JSON data for the url associated to the short link RPLMMG, something like that:
