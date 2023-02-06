@@ -4,7 +4,8 @@
 
 ## Use
 
-Clone/git pull the repo into any local directory e.g. like it is shown below (here I show all the examples related to this repository, but I assume you have your own derived from the template):
+Clone/git pull the repo into any local directory e.g. like it is shown below 
+(here I show all the examples related to this repository, but I assume you have your own derived from the template):
 
 ```
 $ git clone https://github.com/daniel-aguilar-garcia/cos-url-shortener.git

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-  <Document name="rest-api-template.ZPM">
+  <Document name="cos-url-shortener.ZPM">
     <Module>
-      <Name>rest-api-template</Name>
+      <Name>cos-url-shortener</Name>
       <Version>1.1.0</Version>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
