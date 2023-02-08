@@ -38,8 +38,7 @@ ClassMethod GetInfo() As %Status
 /// Return one record of AQS.urlShortener.url
 ClassMethod GetUrl(shortUrl As %String) As %Status
 {
-	#dim tSC As %Status = $$$OK
-    ;#dim e As %Exception.AbstractException
+	  #dim tSC As %Status = $$$OK
     #dim id As %Integer
 
     #; Set the response header to plain text
@@ -82,9 +81,8 @@ ClassMethod GetUrlInfo(index As %String) As %Status
 /// Creates a new AQS.urlShortener.url record
 ClassMethod CreateUrl() As %Status
 {
-	#dim tSC As %Status = $$$OK
-    #dim e As %Exception.AbstractException
-    
+	  #dim tSC As %Status = $$$OK
+
     Set url = ##class(AQS.urlShortener.Url).%New()
     Set data=%request.Content
     W ""
