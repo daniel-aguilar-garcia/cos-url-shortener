@@ -32,7 +32,7 @@ Adjust the authorization if needed - it is basic for container with default logi
 
 and send the POST request to localhost:52773/
 
-This will create a record in dc.Sample.Url class of IRIS.
+This will create a record in AQS.urlShortener.Url class of IRIS.
 
 
 # Testing Navigate to Long Url requests
@@ -74,6 +74,6 @@ localhost:52773/delete/5
 For autodelete expired links just create a task in the portal an call this method.
 
 ```
-##class(dc.Sample.Url).DeleteExpiredUrl()
+##class(AQS.urlShortener.Url).DeleteExpiredUrl()
 ```
 

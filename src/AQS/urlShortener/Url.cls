@@ -1,4 +1,4 @@
-Class dc.Sample.Url Extends (%Persistent, %JSON.Adaptor, %Populate)
+Class AQS.urlShortener.Url Extends (%Persistent, %JSON.Adaptor, %Populate)
 {
 
 Property ShortUrl As %String;
@@ -68,7 +68,6 @@ Storage Default
 ClassMethod DeleteExpiredUrl()
 {
     #Dim ExpirationDate
-    #Dim index
     #Dim exit
     #Dim today
 
@@ -83,7 +82,7 @@ ClassMethod DeleteExpiredUrl()
         If (ExpirationDate <= today)
         {
             Set id=$O(^Sample.UrlI("ExpirationDate",ExpirationDate,""))
-            Do:(id'="") ##class(dc.Sample.Url).%DeleteId(id)
+            Do:(id'="") ##class(AQS.urlShortener.Url).%DeleteId(id)
         }Else{
             Set exit=1
         }

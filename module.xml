@@ -3,10 +3,10 @@
   <Document name="cos-url-shortener.ZPM">
     <Module>
       <Name>cos-url-shortener</Name>
-      <Version>1.1.0</Version>
+      <Version>1.1.1</Version>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
-      <Resource Name="dc.Sample.PKG"/>
+      <Resource Name="AQS.urlShortener.PKG"/>
       <Dependencies>
         <ModuleReference>
           <Name>swagger-ui</Name>
@@ -15,7 +15,7 @@
       </Dependencies>
         <CSPApplication 
         Url="/"
-        DispatchClass="dc.Sample.UrlREST"
+        DispatchClass="AQS.urlShortener.UrlREST"
         MatchRoles=":{$dbrole}"
         PasswordAuthEnabled="0"
         UnauthenticatedEnabled="1"

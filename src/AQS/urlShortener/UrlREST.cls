@@ -1,4 +1,4 @@
-Class dc.Sample.UrlREST Extends Sample.REST.Base
+Class AQS.urlShortener.UrlREST Extends urlShortener.REST.Base
 {
 
 Parameter Version = "1.0.6";
@@ -35,11 +35,11 @@ ClassMethod GetInfo() As %Status
   RETURN ..%ProcessResult($$$OK, info)
 }
 
-/// Return one record fo dc.Sample.url
+/// Return one record of AQS.urlShortener.url
 ClassMethod GetUrl(shortUrl As %String) As %Status
 {
 	#dim tSC As %Status = $$$OK
-    #dim e As %Exception.AbstractException
+    ;#dim e As %Exception.AbstractException
     #dim id As %Integer
 
     #; Set the response header to plain text
@@ -47,7 +47,7 @@ ClassMethod GetUrl(shortUrl As %String) As %Status
     Set shortUrl=" "_shortUrl
     Set id=$Order(^Sample.UrlI("Index",shortUrl,""),-1)
     
-    Set url = ##class(dc.Sample.Url).%OpenId(id)
+    Set url = ##class(AQS.urlShortener.Url).%OpenId(id)
     
     If '$IsObject(url) Quit ..Http404()
 
@@ -59,11 +59,10 @@ ClassMethod GetUrl(shortUrl As %String) As %Status
     Quit tSC
 }
 
-/// Return one record fo dc.Sample.url
+/// Return one record of AQS.urlShortener.url
 ClassMethod GetUrlInfo(index As %String) As %Status
 {
-	#dim tSC As %Status = $$$OK
-    #dim e As %Exception.AbstractException
+	  #dim tSC As %Status = $$$OK
     #dim id As %Integer
 
     #; Set the response header to plain text
@@ -71,7 +70,7 @@ ClassMethod GetUrlInfo(index As %String) As %Status
     Set index=" "_index
     Set id=$Order(^Sample.UrlI("Index",index,""),-1)
     
-    Set url = ##class(dc.Sample.Url).%OpenId(id)
+    Set url = ##class(AQS.urlShortener.Url).%OpenId(id)
     
     If '$IsObject(url) Quit ..Http404()
 
@@ -80,13 +79,13 @@ ClassMethod GetUrlInfo(index As %String) As %Status
     Quit tSC
 }
 
-/// Creates a new dc.Sample.url record
+/// Creates a new AQS.urlShortener.url record
 ClassMethod CreateUrl() As %Status
 {
 	#dim tSC As %Status = $$$OK
     #dim e As %Exception.AbstractException
     
-    Set url = ##class(dc.Sample.Url).%New()
+    Set url = ##class(AQS.urlShortener.Url).%New()
     Set data=%request.Content
     W ""
     Set url.ShortUrl=$ZCVT(##class(%PopulateUtils).StringMin(data.Length,data.Length),"U")
@@ -100,19 +99,16 @@ ClassMethod CreateUrl() As %Status
     Set %response.ContentType = ..#CONTENTTYPEJSON
     
     
-    //d data.%ToJSON()
-    
     Do url.%JSONExport()
 
     Quit tSC
 }
 
-/// Delete a record with id in dc.Sample.url
+/// Delete a record with id in AQS.urlShortener.url
 ClassMethod DeleteUrl(id As %String) As %Status
 {
-	#dim tSC As %Status = $$$OK
-    #dim e As %Exception.AbstractException
-    Set url = ##class(dc.Sample.Url).%OpenId(id)
+	  #dim tSC As %Status = $$$OK
+    Set url = ##class(AQS.urlShortener.Url).%OpenId(id)
     If '$IsObject(url) Return ..Http404()
 
     $$$TOE(tSC,url.%DeleteId(id))
@@ -126,7 +122,7 @@ ClassMethod DeleteUrl(id As %String) As %Status
 
 ClassMethod SwaggerSpec() As %Status
 {
-  Set tSC = ##class(%REST.API).GetWebRESTApplication($NAMESPACE, %request.Application, .swagger)
+  Do ##class(%REST.API).GetWebRESTApplication($NAMESPACE, %request.Application, .swagger)
   Do swagger.info.%Remove("x-ISC_Namespace")
   Set swagger.basePath = "/"
   Set swagger.info.title = "InterSystems IRIS REST URL SHORTENER CRUD"
