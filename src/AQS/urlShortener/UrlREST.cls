@@ -22,6 +22,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/delete/:id" Method="GET" Call="DeleteUrl"/>
 
 
+
 </Routes>
 }
 
@@ -35,6 +36,16 @@ ClassMethod GetInfo() As %Status
   RETURN ..%ProcessResult($$$OK, info)
 }
 
+ClassMethod CreateRandomPythonString(length As %Integer) [ Language = python ]
+{
+    import iris
+    import string
+    import random
+
+    characters = string.ascii_uppercase + string.digits
+    return ''.join(random.choice(characters) for i in range(length))
+}
+
 /// Return one record of AQS.urlShortener.url
 ClassMethod GetUrl(shortUrl As %String) As %Status
 {
@@ -44,7 +55,7 @@ ClassMethod GetUrl(shortUrl As %String) As %Status
     #; Set the response header to plain text
     Set %response.ContentType = ..#CONTENTTYPEJSON
     Set shortUrl=" "_shortUrl
-    Set id=$Order(^Sample.UrlI("Index",shortUrl,""),-1)
+    Set id=$Order(^UrlShortenerI("Index",shortUrl,""),-1)
     
     Set url = ##class(AQS.urlShortener.Url).%OpenId(id)
     
@@ -67,7 +78,7 @@ ClassMethod GetUrlInfo(index As %String) As %Status
     #; Set the response header to plain text
     Set %response.ContentType = ..#CONTENTTYPEJSON
     Set index=" "_index
-    Set id=$Order(^Sample.UrlI("Index",index,""),-1)
+    Set id=$Order(^UrlShortenerI("Index",index,""),-1)
     
     Set url = ##class(AQS.urlShortener.Url).%OpenId(id)
     
@@ -86,7 +97,8 @@ ClassMethod CreateUrl() As %Status
     Set url = ##class(AQS.urlShortener.Url).%New()
     Set data=%request.Content
     W ""
-    Set url.ShortUrl=$ZCVT(##class(%PopulateUtils).StringMin(data.Length,data.Length),"U")
+    //Set url.ShortUrl=$ZCVT(##class(%PopulateUtils).StringMin(data.Length,data.Length),"U")
+    Set url.ShortUrl=..CreateRandomPythonString(data.Length)
     Set url.Clicked=0
     Set url.ExpirationDate=$P($H,",",1)+data.ExpirationDays
     

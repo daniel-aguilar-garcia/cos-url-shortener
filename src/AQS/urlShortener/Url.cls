@@ -57,11 +57,11 @@ Storage Default
 <Value>ExpirationDate</Value>
 </Value>
 </Data>
-<DataLocation>^Sample.UrlD</DataLocation>
+<DataLocation>^UrlShortenerD</DataLocation>
 <DefaultData>UrlDefaultData</DefaultData>
-<IdLocation>^Sample.UrlD</IdLocation>
-<IndexLocation>^Sample.UrlI</IndexLocation>
-<StreamLocation>^Sample.UrlS</StreamLocation>
+<IdLocation>^UrlShortenerD</IdLocation>
+<IndexLocation>^UrlShortenerI</IndexLocation>
+<StreamLocation>^UrlShortenerS</StreamLocation>
 <Type>%Storage.Persistent</Type>
 }
 
@@ -76,12 +76,12 @@ ClassMethod DeleteExpiredUrl()
 
     Set ExpirationDate=""
     For{
-        Set ExpirationDate=$O(^Sample.UrlI("ExpirationDate",ExpirationDate))
+        Set ExpirationDate=$O(^UrlShortenerI("ExpirationDate",ExpirationDate))
         Quit:(ExpirationDate="")!(exit=1)
 
         If (ExpirationDate <= today)
         {
-            Set id=$O(^Sample.UrlI("ExpirationDate",ExpirationDate,""))
+            Set id=$O(^UrlShortenerI("ExpirationDate",ExpirationDate,""))
             Do:(id'="") ##class(AQS.urlShortener.Url).%DeleteId(id)
         }Else{
             Set exit=1
