@@ -1,6 +1,7 @@
 
 ## This project is based in the project intersystems-community/iris-rest-api-templates (a template of a REST API application built with ObjectScript in InterSystems IRIS)
 
+[![Quality Gate Status](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2Fcos-url-shortener&metric=alert_status)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2Fcos-url-shortener)
 
 ## Use
 
